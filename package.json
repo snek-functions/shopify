@@ -1,0 +1,35 @@
+{
+  "name": "@snek-functions/shopify",
+  "version": "0.0.1",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "description": "Generated with `snek-functions init`",
+  "author": "snek-at",
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
+  "dependencies": {
+    "@snek-at/functions": "*",
+    "@types/file-saver": "^2.0.5",
+    "file-saver": "^2.0.5"
+  },
+  "devDependencies": {
+    "commitizen": "^4.2.5",
+    "git-cz": "^4.9.0",
+    "nodemon": "^2.0.19",
+    "serverless": "^3.19.0",
+    "serverless-offline": "^9.2.6",
+    "serverless-plugin-ifelse": "^1.0.7"
+  },
+  "scripts": {
+    "build": "sf build -f . --declaration",
+    "start": "sf build -f . && IS_OFFLINE=true nodemon --watch dist --exec sls offline",
+    "deploy": "sls deploy",
+    "postinstall": "sf install"
+  },
+  "sfDependencies": {}
+}

@@ -1,0 +1,48 @@
+service: template
+frameworkVersion: '3'
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-ifelse
+
+custom:
+  isOffline: ${env:IS_OFFLINE, "false"}
+  serverlessIfElse:
+    - If: '"${self:custom.isOffline}" != "true"'
+      Exclude:
+        - functions.endpoint.handler
+        - provider.environment.CODESPACE_NAME
+      ElseExclude:
+        - functions.endpoint.image
+
+provider:
+  name: aws
+  region: eu-central-1
+
+  timeout: 900
+
+  environment:
+    CODESPACE_NAME: ${env:CODESPACE_NAME, ""}
+    SHOPIFY_URL_WHITELIST:  ${env:SHOPIFY_URL_WHITELIST, ""}
+
+  ecr:
+    images:
+      appimage:
+        path: ./
+
+functions:
+  endpoint:
+    image:
+      name: appimage
+      command:
+        - dist/app.handler
+    handler: dist/app.handler
+    events:
+      - httpApi:
+          path: '*'
+          method: '*'
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019-2022 snek.at
