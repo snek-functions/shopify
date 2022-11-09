@@ -1,8 +1,13 @@
 import {makeFn} from '@snek-at/functions'
 
-export const fn = makeFn({
-  url: 'https://schettn-improved-train-ppx4pxv49q7c7557-3000.preview.app.github.dev/graphql',
-})
+export const url = process.env.IS_OFFLINE
+  ? process.env.CODESPACE_NAME
+    ? `https://${process.env.CODESPACE_NAME}-4070.githubpreview.dev/graphql`
+    : 'http://localhost:4070/graphql'
+  : process.env.ENDPOINT_URL_SHOPIFY ||
+    process.env.GATSBY_ENDPOINT_URL_SHOPIFY ||
+    ''
 
-// SPDX-License-Identifier: (EUPL-1.2)
-// Copyright © 2019-2022 snek.at
+export const fn = makeFn({
+  url
+})

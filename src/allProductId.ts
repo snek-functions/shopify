@@ -2,18 +2,20 @@ import {fn} from './factory'
 import ShopifyAdminApi from './internal/shopifyAdminApi.js'
 import {ShopifyId} from './types.js'
 
-const deleteProduct = fn<{productId: string} & ShopifyId, void>(
+const allProductId = fn<ShopifyId, string[]>(
   async args => {
     const api = new ShopifyAdminApi(args.shop, args.accessToken)
 
-    await api.deleteProductById(args.productId)
+    const handles = await api.allProductId()
+
+    return handles
   },
   {
-    name: 'deleteProduct'
+    name: 'allProductId'
   }
 )
 
-export default deleteProduct
+export default allProductId
 
 // SPDX-License-Identifier: (EUPL-1.2)
 // Copyright © 2019-2022 snek.at

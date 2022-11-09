@@ -1,20 +1,17 @@
-import { fn } from "./factory"
-import ShopifyAdminApi from "./internal/shopifyAdminApi.js"
-import { ShopifyId } from "./types.js";
+import {fn} from './factory'
+import ShopifyAdminApi from './internal/shopifyAdminApi.js'
+import {ShopifyId} from './types.js'
 
 const validateSecret = fn<ShopifyId, boolean>(
   async args => {
-    console.log("validateSecret", args)
     const api = new ShopifyAdminApi(args.shop, args.accessToken)
 
-    const product = await api.validateSecret()
-
-    console.log(product)
+    await api.validateSecret()
 
     return true
   },
   {
-    name: "validateSecret",
+    name: 'validateSecret'
   }
 )
 

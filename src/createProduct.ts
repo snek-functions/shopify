@@ -1,12 +1,9 @@
-import { fn } from "./factory"
-import { ShopifyProductInput } from "./internal/types.js"
-import ShopifyAdminApi from "./internal/shopifyAdminApi.js"
-import { ShopifyId } from "./types.js"
+import {fn} from './factory'
+import {ShopifyProductInput} from './internal/types.js'
+import ShopifyAdminApi from './internal/shopifyAdminApi.js'
+import {ShopifyId} from './types.js'
 
-const createProduct = fn<
-  { product: string } & ShopifyId,
-  string
->(
+const createProduct = fn<{product: string} & ShopifyId, string>(
   async args => {
     const api = new ShopifyAdminApi(args.shop, args.accessToken)
 
@@ -17,7 +14,7 @@ const createProduct = fn<
     return id
   },
   {
-    name: "createProduct",
+    name: 'createProduct'
   }
 )
 

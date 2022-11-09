@@ -1,4 +1,4 @@
-import { ShopifyProductInput, UpdateShopifyProductInput } from "./types.js"
+import {ShopifyProductInput, UpdateShopifyProductInput} from './types.js'
 
 class ShopifyGraphqlClient {
   private shop: string
@@ -12,19 +12,19 @@ class ShopifyGraphqlClient {
   async query<T>(
     query: string,
     variables?: Record<string, unknown>
-  ): Promise<{ data: T; errors: any[] }> {
+  ): Promise<{data: T; errors: any[]}> {
     const response = await fetch(
       `https://${this.shop}/admin/api/2022-01/graphql.json`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Access-Token": this.accessToken,
+          'Content-Type': 'application/json',
+          'X-Shopify-Access-Token': this.accessToken
         },
         body: JSON.stringify({
           query,
-          variables,
-        }),
+          variables
+        })
       }
     )
 
@@ -34,14 +34,14 @@ class ShopifyGraphqlClient {
       if (!Array.isArray(json.errors)) {
         return {
           data: json.data,
-          errors: [new Error(json.errors)],
+          errors: [new Error(json.errors)]
         }
       }
     }
 
     return {
       data: json.data,
-      errors: json.errors || [],
+      errors: json.errors || []
     }
   }
 }
@@ -50,7 +50,7 @@ class ShopifyAdminApi {
   private client: ShopifyGraphqlClient
 
   private checkShopWhitelist(shop: string): boolean {
-    const whitelist = process.env.SHOPIFY_SHOP_WHITELIST?.split(",")
+    const whitelist = process.env.SHOPIFY_SHOP_WHITELIST?.split(',')
 
     if (!whitelist) {
       return true
@@ -61,7 +61,7 @@ class ShopifyAdminApi {
 
   constructor(shop: string, accessToken: string) {
     if (!this.checkShopWhitelist(shop)) {
-      throw new Error("Shop not whitelisted")
+      throw new Error('Shop not whitelisted')
     }
 
     this.client = new ShopifyGraphqlClient(shop, accessToken)
@@ -78,7 +78,7 @@ class ShopifyAdminApi {
       }
     }`
 
-    const { data, errors } = await this.client.query(query)
+    const {data, errors} = await this.client.query(query)
 
     console.log(`data`, data)
     console.log(`errors`, errors)
@@ -92,7 +92,7 @@ class ShopifyAdminApi {
     return data
   }
 
-  async productIds(cursor?: string): Promise<string[]> {
+  async allProductId(cursor?: string): Promise<string[]> {
     const query = `query {
       products(first: 250, after: ${cursor ? `"${cursor}"` : null}) {
         edges {
@@ -126,13 +126,13 @@ class ShopifyAdminApi {
     // check if there are more pages
 
     if (data.products.pageInfo.hasNextPage) {
-      const moreHandles = await this.productIds(
+      const moreHandles = await this.allProductId(
         data.products.edges[data.products.edges.length - 1].cursor
       )
 
       return [
         ...data.products.edges.map((edge: any) => edge.node.handle),
-        ...moreHandles,
+        ...moreHandles
       ]
     }
 
@@ -152,7 +152,6 @@ class ShopifyAdminApi {
       }[]
     }
   }> {
-
     console.log(`id`, id)
 
     const query = `query {
@@ -230,7 +229,7 @@ class ShopifyAdminApi {
       }
     }`
 
-    const response = await this.client.query<{ productDelete: any }>(query)
+    const response = await this.client.query<{productDelete: any}>(query)
 
     const data = response.data
 
@@ -263,7 +262,7 @@ class ShopifyAdminApi {
         userErrors: any[]
       }
     }>(queryWithArgs, {
-      input: product,
+      input: product
     })
 
     console.log(response)
@@ -295,7 +294,7 @@ class ShopifyAdminApi {
 
       return {
         ...metafield,
-        id: existingMetafield?.id,
+        id: existingMetafield?.id
       }
     })
 
@@ -324,7 +323,7 @@ class ShopifyAdminApi {
         userErrors: any[]
       }
     }>(queryWithArgs, {
-      input: product,
+      input: product
     })
 
     const data = response.data
