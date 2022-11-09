@@ -1,11 +1,14 @@
 {
   "name": "@snek-functions/shopify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "description": "Generated with `snek-functions init`",
   "author": "snek-at",
+  "files": [
+    "dist"
+  ],
   "config": {
     "commitizen": {
       "path": "git-cz"
