@@ -1,4 +1,4 @@
-service: template
+service: shopify
 frameworkVersion: '3'
 
 useDotenv: true
@@ -25,7 +25,7 @@ provider:
 
   environment:
     CODESPACE_NAME: ${env:CODESPACE_NAME, ""}
-    SHOPIFY_URL_WHITELIST:  ${env:SHOPIFY_URL_WHITELIST, ""}
+    SHOPIFY_URL_WHITELIST: ${env:SHOPIFY_URL_WHITELIST, ""}
 
   ecr:
     images:
@@ -43,6 +43,5 @@ functions:
       - httpApi:
           path: '*'
           method: '*'
-
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019-2022 snek.at
