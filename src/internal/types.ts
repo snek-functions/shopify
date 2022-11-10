@@ -6,7 +6,7 @@ export type ShopifyProductInput = {
     namespace: string
     key: string
     value: string
-    valueType: string
+    type: string
   }[]
   productType: string
   tags: string[]
