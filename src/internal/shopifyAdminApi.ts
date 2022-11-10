@@ -328,7 +328,7 @@ class ShopifyAdminApi {
 
     const data = response.data
 
-    console.log(`data`, data)
+    console.log(`response`, response)
 
     if (data.productUpdate.userErrors.length > 0) {
       console.log(
