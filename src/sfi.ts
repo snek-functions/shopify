@@ -31,7 +31,7 @@ export default defineService(
 
         return "Product created";
       },
-      deleteProduct: (id: ShopifyId, productId: string) => {
+      productDelete: (id: ShopifyId, productId: string) => {
         const shopifyAdminApi = new ShopifyAdminApi(
           id.storeUrl,
           id.accessToken
