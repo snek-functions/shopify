@@ -31,6 +31,14 @@ class ShopifyGraphqlClient {
     const json = await response.json();
 
     if (json.errors) {
+      if (json.errors[0].message === "Throttled") {
+        // wait 5 seconds and try again
+
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+
+        return this.query(query, variables);
+      }
+
       if (!Array.isArray(json.errors)) {
         return {
           data: json.data,
@@ -82,6 +90,8 @@ class ShopifyAdminApi {
       };
     }>(query);
 
+    console.log("errors", response.errors);
+
     console.log("data", response.data.products.edges);
 
     const data = response.data;
@@ -89,6 +99,11 @@ class ShopifyAdminApi {
     // check if there are more pages
 
     if (data.products.pageInfo.hasNextPage) {
+      console.log(
+        "cursor",
+        data.products.edges[data.products.edges.length - 1].cursor
+      );
+
       const moreIds = await this.allProductId(
         data.products.edges[data.products.edges.length - 1].cursor
       );
