@@ -5,22 +5,15 @@ yarn-error.log
 tsconfig.tsbuildinfo
 yarn.lock
 package-lock.json
-
-# Python
-*.cpython*
-venv
+.yarn
 
 # Environment
 .env
 .env.*
 
-# Serverless
-.serverless/
+# snek-function
+.sf
 
-# Django
-django_iam.egg-info
-__pycache__
-db.sqlite3
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019-2022 snek.at

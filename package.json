@@ -1,13 +1,24 @@
 {
   "name": "@snek-functions/shopify",
-  "version": "0.0.4",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "baseURL": "https://schettn-special-umbrella-q66979jv7gh4w59-3000.preview.app.github.dev",
+  "version": "0.0.5",
   "type": "module",
-  "description": "Generated with `snek-functions init`",
+  "description": "Generated with `sf new`",
   "author": "snek-at",
+  "exports": {
+    "./client": "./src/client/index.ts",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "./client": [
+        "./src/client/index.ts"
+      ]
+    }
+  },
   "files": [
-    "dist"
+    "src/client",
+    "package.json"
   ],
   "config": {
     "commitizen": {
@@ -15,23 +26,17 @@
     }
   },
   "dependencies": {
-    "@snek-at/functions": "*",
-    "@types/file-saver": "^2.0.5",
-    "file-saver": "^2.0.5"
+    "@snek-at/function": "*",
+    "@snek-at/function-cli": "*",
+    "@snek-at/function-server": "*"
   },
   "devDependencies": {
     "commitizen": "^4.2.5",
     "git-cz": "^4.9.0",
-    "nodemon": "^2.0.19",
-    "serverless": "^3.19.0",
-    "serverless-offline": "^9.2.6",
-    "serverless-plugin-ifelse": "^1.0.7"
+    "snek-query": "^0.0.53"
   },
   "scripts": {
-    "build": "sf build -f . --declaration",
-    "start": "sf build -f . && IS_OFFLINE=true nodemon --watch dist --exec sls offline",
-    "deploy": "sls deploy",
-    "postinstall": "sf install"
-  },
-  "sfDependencies": {}
+    "develop": "yarn sf develop",
+    "build": "yarn sf build"
+  }
 }
