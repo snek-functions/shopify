@@ -27,9 +27,7 @@ export default defineService(
           id.storeUrl,
           id.accessToken
         );
-        shopifyAdminApi.createProduct(product);
-
-        return "Product created";
+        return shopifyAdminApi.createProduct(product);
       },
       productDelete: (id: ShopifyId, productId: string) => {
         const shopifyAdminApi = new ShopifyAdminApi(

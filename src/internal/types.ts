@@ -1,22 +1,26 @@
 export type ShopifyProductInput = {
-  handle: string;
+  handle?: string;
   title: string;
-  descriptionHtml: string;
-  metafields: {
+  descriptionHtml?: string;
+  metafields?: {
     namespace: string;
     key: string;
     value: string;
     type: string;
   }[];
-  productType: string;
-  tags: string[];
-  variants: {
-    price: string;
-    compareAtPrice: string;
-    sku: string;
-    taxable: boolean;
+  productType?: string;
+  tags?: string[];
+  variants?: {
+    price?: string;
+    compareAtPrice?: string;
+    sku?: string;
+    taxable?: boolean;
+    inventoryPolicy?: string;
+    inventoryItem?: {
+      tracked?: boolean;
+    };
   };
-  vendor: string;
+  vendor?: string;
 };
 
 export interface UpdateShopifyProductInput {
@@ -33,10 +37,14 @@ export interface UpdateShopifyProductInput {
   productType?: string;
   tags?: string[];
   variants?: {
-    price: string;
-    compareAtPrice: string;
-    sku: string;
-    taxable: boolean;
+    price?: string;
+    compareAtPrice?: string;
+    sku?: string;
+    taxable?: boolean;
+    inventoryPolicy?: string;
+    inventoryItem?: {
+      tracked?: boolean;
+    };
   };
   vendor?: string;
 }
